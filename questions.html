@@ -1,211 +1,183 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Answer Questions - QuickEarn PK</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
-</head>
-<body>
-    <div class="background-animation"></div>
-    
-    <nav class="navbar">
-        <div class="nav-container">
-            <div class="logo">
-                <div class="logo-icon">💰</div>
-                <h2>QuickEarn PK</h2>
+<script>
+// AdStira Ads Manager - MULTIPLE BANNERS VERSION
+class AdStiraRevenueManager {
+    constructor() {
+        this.adsEnabled = true;
+        this.adCounter = 0;
+        this.adContainer = document.getElementById('adContainer');
+        this.bannerCounter = 0;
+    }
+
+    // Show 4 ADS after each question
+    showQuadAds() {
+        if (!this.adsEnabled) return;
+        
+        this.adCounter++;
+        console.log(`🎯 Showing 4 Ads - Set #${this.adCounter}`);
+        
+        // Clear previous ads first
+        this.clearAds();
+        
+        // Show SmartLink
+        this.showSmallSmartLink();
+        
+        // Show FIRST Banner immediately
+        this.showBannerAd();
+        
+        // Show SECOND Banner after 10 seconds
+        setTimeout(() => {
+            this.showBannerAd();
+        }, 10000);
+
+        // Show Video Ad after 15 seconds
+        setTimeout(() => {
+            this.showVideoAd();
+        }, 15000);
+
+        // Show Push Ad after 20 seconds
+        setTimeout(() => {
+            this.showPushAd();
+        }, 20000);
+    }
+
+    showSmallSmartLink() {
+        console.log('🔄 Showing Small SmartLink');
+        
+        // Small embedded iframe
+        const smartLinkHTML = `
+            <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; height: 250px; background: white; z-index: 10000; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.3); padding: 15px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <h4 style="margin: 0; color: #333;">Special Offer</h4>
+                    <button onclick="this.parentElement.parentElement.parentElement.remove()" style="background: none; border: none; font-size: 18px; cursor: pointer; color: #666;">×</button>
+                </div>
+                <iframe src="https://www.effectivegatecpm.com/h8ftnbwz7j?key=23a91a54de2595d8217cf1f83ede4456" 
+                        style="width: 100%; height: 180px; border: none; border-radius: 5px;"></iframe>
             </div>
-            <div class="nav-links">
-                <a href="index.html" class="nav-link">Home</a>
-                <a href="questions.html" class="nav-link active">Earn Money</a>
-                <a href="profile.html" class="nav-link">Withdraw</a>
-                <span class="balance-badge" id="userBalance">0 PKR</span>
-            </div>
-        </div>
-    </nav>
+        `;
+        this.adContainer.innerHTML += smartLinkHTML;
+        
+        // Auto close after 8 seconds
+        setTimeout(() => {
+            const smartLinkDiv = this.adContainer.querySelector('div');
+            if (smartLinkDiv) {
+                smartLinkDiv.remove();
+            }
+        }, 8000);
+    }
 
-    <div class="container">
-        <div id="questionContainer" class="question-container">
-            <div class="timer-container">
-                <div class="timer" id="timer">10</div>
-                <div class="timer-seconds">seconds remaining</div>
-            </div>
-            
-            <h2 id="questionText">Loading question...</h2>
-            
-            <div class="options" id="optionsContainer">
-                <!-- Options will load here -->
-            </div>
-            
-            <button onclick="submitAnswer()" id="submitBtn" disabled class="btn btn-primary">
-                Submit Answer
-            </button>
-
-            <div class="progress-text">
-                Question <span id="currentQ">1</span> of 20 | 
-                Earned: <span id="earnedSoFar">0</span> PKR
-            </div>
-        </div>
-    </div>
-
-    <!-- AD CONTAINER -->
-    <div id="adContainer"></div>
-
-    <script src="firebase-config.js"></script>
-    <script src="questions.js"></script>
-
-    <!-- COMPLETE AD SYSTEM FOR QUESTIONS PAGE -->
-    <script>
-    // AdStira Ads Manager - QUESTIONS PAGE VERSION
-    class AdStiraRevenueManager {
-        constructor() {
-            this.adClientId = "62dae259741887f42ba133aea9ce8028";
-            this.adsEnabled = true;
-            this.adCounter = 0;
-            this.dailyRevenue = 0;
-        }
-
-        initAdStira() {
-            if (!this.adsEnabled) return;
-            console.log('✅ AdStira Initialized - Questions Page');
-        }
-
-        // Show 4 ADS after each question
-        showQuadAds() {
-            if (!this.adsEnabled) return;
-            
-            this.adCounter++;
-            console.log(`🎯 Showing 4 Ads - Set #${this.adCounter} (After Question)`);
-            
-            // Show interstitial ad
-            this.showInterstitialAd();
-            
-            // Show banner ad after 5 seconds
-            setTimeout(() => {
-                this.showBannerAd();
-            }, 5000);
-
-            // Show video ad after 10 seconds
-            setTimeout(() => {
-                this.showVideoAd();
-            }, 10000);
-
-            // Show push ad after 15 seconds
-            setTimeout(() => {
-                this.showPushAd();
-            }, 15000);
-        }
-
-        showInterstitialAd() {
-            console.log('🔄 Showing Interstitial Ad');
-            // SMARTLINK AD - New tab mein open karein
-            setTimeout(() => {
-                window.open('https://www.effectivegatecpm.com/h8ftnbwz7j?key=23a91a54de2595d8217cf1f83ede4456', '_blank', 'noopener,noreferrer');
-            }, 1000);
-        }
-
-        showBannerAd() {
-            console.log('📺 Showing Banner Ad');
-            // BANNER AD - Bottom mein
-            const bannerHTML = `
-                <div style="position: fixed; bottom: 0; width: 100%; text-align: center; background: white; z-index: 9999; padding: 10px; border-top: 2px solid #007bff;">
+    showBannerAd() {
+        this.bannerCounter++;
+        console.log(`📺 Showing Banner Ad #${this.bannerCounter}`);
+        
+        // DIFFERENT BANNER CODES - Rotation
+        const bannerCodes = [
+            {
+                key: '62dae259741887f42ba133aea9ce8028',
+                src: '//www.highperformanceformat.com/62dae259741887f42ba133aea9ce8028/invoke.js'
+            },
+            {
+                key: 'a6f123456789', // Different key (example)
+                src: '//www.highperformanceformat.com/a6f123456789/invoke.js'
+            }
+        ];
+        
+        const currentBanner = bannerCodes[this.bannerCounter % bannerCodes.length];
+        
+        const bannerHTML = `
+            <div class="banner-ad-${this.bannerCounter}" style="position: fixed; bottom: 0; left: 0; width: 100%; background: white; text-align: center; padding: 10px; z-index: 9999; border-top: 2px solid #007bff;">
+                <div id="banner-${this.bannerCounter}">
                     <script type="text/javascript">
                         atOptions = {
-                            'key' : '62dae259741887f42ba133aea9ce8028',
+                            'key' : '${currentBanner.key}',
                             'format' : 'iframe',
                             'height' : 60,
                             'width' : 468,
                             'params' : {}
                         };
                     </script>
-                    <script type="text/javascript" src="//www.highperformanceformat.com/62dae259741887f42ba133aea9ce8028/invoke.js"></script>
+                    <script type="text/javascript" src="${currentBanner.src}"></script>
                 </div>
-            `;
-            document.getElementById('adContainer').innerHTML += bannerHTML;
-        }
-
-        showVideoAd() {
-            console.log('🎥 Showing Video Ad');
-            // SOCIAL BAR AD
-            const videoHTML = `
-                <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10000; background: white; padding: 20px; border-radius: 10px;">
-                    <script type='text/javascript' src='//pl28138593.effectivegatecpm.com/c1/7a/5b/c17a5b3f2bb47df5b6ce9a99978a3b7c.js'></script>
+                <div style="margin-top: 5px; font-size: 12px; color: #666;">
+                    Banner ${this.bannerCounter} - Earn Money ✓
                 </div>
-            `;
-            document.getElementById('adContainer').innerHTML += videoHTML;
-        }
+            </div>
+        `;
+        this.adContainer.innerHTML += bannerHTML;
+        
+        // Auto refresh this banner after 15 seconds
+        setTimeout(() => {
+            const oldBanner = document.querySelector(`.banner-ad-${this.bannerCounter}`);
+            if (oldBanner) {
+                oldBanner.remove();
+                this.showBannerAd(); // Show new banner
+            }
+        }, 15000);
+    }
 
-        showPushAd() {
-            console.log('🔔 Showing Push Ad');
-            // NATIVE BANNER AD
-            const nativeHTML = `
-                <div style="position: fixed; top: 10px; right: 10px; z-index: 9998; background: white; padding: 15px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.3);">
-                    <script async="async" data-cfasync="false" src="//pl28140114.effectivegatecpm.com/b10b0a2549e0366bc6317a6d5862501e/invoke.js"></script>
-                    <div id="container-b10b0a2549e0366bc6317a6d5862501e"></div>
+    showVideoAd() {
+        console.log('🎥 Showing Video Ad');
+        const videoHTML = `
+            <div class="video-ad" style="position: fixed; top: 20px; right: 20px; z-index: 9998; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.3);">
+                <div style="width: 300px; height: 250px; background: linear-gradient(45deg, #ff6b6b, #feca57); display: flex; align-items: center; justify-content: center; color: white; border-radius: 8px;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 24px; margin-bottom: 10px;">🎬</div>
+                        <div style="font-weight: bold;">Video Ad</div>
+                        <div style="font-size: 12px; margin-top: 5px;">Watch & Earn Money</div>
+                    </div>
                 </div>
-            `;
-            document.getElementById('adContainer').innerHTML += nativeHTML;
+            </div>
+        `;
+        this.adContainer.innerHTML += videoHTML;
+    }
+
+    showPushAd() {
+        console.log('🔔 Showing Push Ad');
+        const pushHTML = `
+            <div class="push-ad" style="position: fixed; top: 20px; left: 20px; z-index: 9998; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.3); min-width: 250px;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <div style="width: 40px; height: 40px; background: #007bff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">$$</div>
+                    <div>
+                        <div style="font-weight: bold; color: #333;">Earn Money Alert</div>
+                        <div style="font-size: 12px; color: #666;">Complete offers to earn!</div>
+                    </div>
+                </div>
+            </div>
+        `;
+        this.adContainer.innerHTML += pushHTML;
+    }
+
+    // Clear all previous ads
+    clearAds() {
+        if (this.adContainer) {
+            // Keep only the current banner if exists
+            const currentBanners = this.adContainer.querySelectorAll('[class*="banner-ad-"]');
+            currentBanners.forEach(banner => {
+                if (!banner.className.includes(this.bannerCounter)) {
+                    banner.remove();
+                }
+            });
         }
-
-        // Clear previous ads
-        clearAds() {
-            document.getElementById('adContainer').innerHTML = '';
-        }
     }
+}
 
-    // Global ad manager
-    const adManager = new AdStiraRevenueManager();
-    adManager.initAdStira();
+// Global ad manager
+const adManager = new AdStiraRevenueManager();
 
-    // Auto show ads when questions page loads
-    window.addEventListener('load', function() {
-        setTimeout(() => {
-            console.log('🔄 Showing initial ads on questions page');
-            adManager.showQuadAds();
-        }, 2000);
-    });
+// Auto show ads when questions page loads
+window.addEventListener('load', function() {
+    setTimeout(() => {
+        console.log('🔄 Showing initial ads on questions page');
+        adManager.showQuadAds();
+    }, 2000);
+});
 
-    // Modified submitAnswer function to show ads after each question
-    function submitAnswer() {
-        // Pehle existing submitAnswer logic (aapka original code)
-        console.log('✅ Answer submitted - Showing ads');
-        
-        // Clear previous ads
-        adManager.clearAds();
-        
-        // Show new ads after 1 second
-        setTimeout(() => {
-            adManager.showQuadAds();
-        }, 1000);
-        
-        // Yahan aapka existing question logic aayega
-        // nextQuestion() ya jo bhi function hai
-    }
-
-    // Agar aapke paas nextQuestion function hai toh usme bhi ads add karein
-    function nextQuestion() {
-        console.log('🔄 Loading next question - Clearing old ads');
-        adManager.clearAds();
-        
-        // Next question load hone ke baad
-        setTimeout(() => {
-            adManager.showQuadAds();
-        }, 2000);
-    }
-
-    // Timer end par bhi ads show karein
-    function onTimerEnd() {
-        console.log('⏰ Timer ended - Showing ads');
-        adManager.clearAds();
-        setTimeout(() => {
-            adManager.showQuadAds();
-        }, 500);
-    }
-
-    console.log('✅ Questions Page Ad System Loaded');
-    </script>
-</body>
-</html>
+// Show ads after each question
+function submitAnswer() {
+    console.log('✅ Answer submitted - Showing ads');
+    
+    // Show new ads after answer
+    setTimeout(() => {
+        adManager.showQuadAds();
+    }, 1000);
+}
+</script>
