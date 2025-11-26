@@ -1,161 +1,125 @@
 <script>
-// AdStira Ads Manager - MULTIPLE BANNERS VERSION
+// AdStira Ads Manager - CUSTOM VERSION
 class AdStiraRevenueManager {
     constructor() {
         this.adsEnabled = true;
         this.adCounter = 0;
         this.adContainer = document.getElementById('adContainer');
-        this.bannerCounter = 0;
     }
 
-    // Show 4 ADS after each question
+    // Show 4 ADS as per requirement
     showQuadAds() {
         if (!this.adsEnabled) return;
         
         this.adCounter++;
-        console.log(`🎯 Showing 4 Ads - Set #${this.adCounter}`);
+        console.log(`🎯 Showing Custom Ads - Set #${this.adCounter}`);
         
         // Clear previous ads first
         this.clearAds();
         
-        // Show SmartLink
-        this.showSmallSmartLink();
-        
-        // Show FIRST Banner immediately
+        // 1. Banner Ad (2 seconds only)
         this.showBannerAd();
         
-        // Show SECOND Banner after 10 seconds
+        // 2. SmartLink after 3 seconds
         setTimeout(() => {
-            this.showBannerAd();
-        }, 10000);
+            this.showSmartLink();
+        }, 3000);
 
-        // Show Video Ad after 15 seconds
+        // 3. First Video after 6 seconds
         setTimeout(() => {
-            this.showVideoAd();
-        }, 15000);
+            this.showVideoAd1();
+        }, 6000);
 
-        // Show Push Ad after 20 seconds
+        // 4. Second Video after 9 seconds
         setTimeout(() => {
-            this.showPushAd();
-        }, 20000);
-    }
-
-    showSmallSmartLink() {
-        console.log('🔄 Showing Small SmartLink');
-        
-        // Small embedded iframe
-        const smartLinkHTML = `
-            <div style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; height: 250px; background: white; z-index: 10000; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.3); padding: 15px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                    <h4 style="margin: 0; color: #333;">Special Offer</h4>
-                    <button onclick="this.parentElement.parentElement.parentElement.remove()" style="background: none; border: none; font-size: 18px; cursor: pointer; color: #666;">×</button>
-                </div>
-                <iframe src="https://www.effectivegatecpm.com/h8ftnbwz7j?key=23a91a54de2595d8217cf1f83ede4456" 
-                        style="width: 100%; height: 180px; border: none; border-radius: 5px;"></iframe>
-            </div>
-        `;
-        this.adContainer.innerHTML += smartLinkHTML;
-        
-        // Auto close after 8 seconds
-        setTimeout(() => {
-            const smartLinkDiv = this.adContainer.querySelector('div');
-            if (smartLinkDiv) {
-                smartLinkDiv.remove();
-            }
-        }, 8000);
+            this.showVideoAd2();
+        }, 9000);
     }
 
     showBannerAd() {
-        this.bannerCounter++;
-        console.log(`📺 Showing Banner Ad #${this.bannerCounter}`);
-        
-        // DIFFERENT BANNER CODES - Rotation
-        const bannerCodes = [
-            {
-                key: '62dae259741887f42ba133aea9ce8028',
-                src: '//www.highperformanceformat.com/62dae259741887f42ba133aea9ce8028/invoke.js'
-            },
-            {
-                key: 'a6f123456789', // Different key (example)
-                src: '//www.highperformanceformat.com/a6f123456789/invoke.js'
-            }
-        ];
-        
-        const currentBanner = bannerCodes[this.bannerCounter % bannerCodes.length];
+        console.log('📺 Showing Banner Ad (2 seconds only)');
         
         const bannerHTML = `
-            <div class="banner-ad-${this.bannerCounter}" style="position: fixed; bottom: 0; left: 0; width: 100%; background: white; text-align: center; padding: 10px; z-index: 9999; border-top: 2px solid #007bff;">
-                <div id="banner-${this.bannerCounter}">
-                    <script type="text/javascript">
-                        atOptions = {
-                            'key' : '${currentBanner.key}',
-                            'format' : 'iframe',
-                            'height' : 60,
-                            'width' : 468,
-                            'params' : {}
-                        };
-                    </script>
-                    <script type="text/javascript" src="${currentBanner.src}"></script>
+            <div id="temp-banner" style="position: fixed; bottom: 0; left: 0; width: 100%; background: white; text-align: center; padding: 8px; z-index: 9999; border-top: 2px solid #007bff;">
+                <div style="color: #333; font-weight: bold; font-size: 14px;">
+                    🎯 Quick Offer - Limited Time!
                 </div>
-                <div style="margin-top: 5px; font-size: 12px; color: #666;">
-                    Banner ${this.bannerCounter} - Earn Money ✓
+                <div style="font-size: 12px; color: #666;">
+                    Special promotion ending soon
                 </div>
             </div>
         `;
         this.adContainer.innerHTML += bannerHTML;
         
-        // Auto refresh this banner after 15 seconds
+        // Remove after exactly 2 seconds
         setTimeout(() => {
-            const oldBanner = document.querySelector(`.banner-ad-${this.bannerCounter}`);
-            if (oldBanner) {
-                oldBanner.remove();
-                this.showBannerAd(); // Show new banner
+            const banner = document.getElementById('temp-banner');
+            if (banner) {
+                banner.remove();
+                console.log('✅ Banner removed after 2 seconds');
             }
-        }, 15000);
+        }, 2000);
     }
 
-    showVideoAd() {
-        console.log('🎥 Showing Video Ad');
-        const videoHTML = `
-            <div class="video-ad" style="position: fixed; top: 20px; right: 20px; z-index: 9998; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.3);">
-                <div style="width: 300px; height: 250px; background: linear-gradient(45deg, #ff6b6b, #feca57); display: flex; align-items: center; justify-content: center; color: white; border-radius: 8px;">
+    showSmartLink() {
+        console.log('🔗 Showing SmartLink');
+        
+        const smartLinkHTML = `
+            <div id="smartlink-popup" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 320px; height: 200px; background: white; z-index: 10000; border-radius: 10px; box-shadow: 0 0 25px rgba(0,0,0,0.4); padding: 15px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <h4 style="margin: 0; color: #333; font-size: 16px;">🌟 Special Offer</h4>
+                    <button onclick="document.getElementById('smartlink-popup').remove()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #666;">×</button>
+                </div>
+                <iframe src="https://www.effectivegatecpm.com/h8ftnbwz7j?key=23a91a54de2595d8217cf1f83ede4456" 
+                        style="width: 100%; height: 120px; border: none; border-radius: 5px;"></iframe>
+                <div style="text-align: center; margin-top: 8px;">
+                    <small style="color: #666;">Click for amazing deals</small>
+                </div>
+            </div>
+        `;
+        this.adContainer.innerHTML += smartLinkHTML;
+    }
+
+    showVideoAd1() {
+        console.log('🎥 Showing Video Ad 1');
+        
+        const videoHTML1 = `
+            <div id="video-ad-1" style="position: fixed; top: 20px; right: 20px; z-index: 9998; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.3);">
+                <div style="width: 280px; height: 200px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; border-radius: 8px; position: relative;">
                     <div style="text-align: center;">
-                        <div style="font-size: 24px; margin-bottom: 10px;">🎬</div>
-                        <div style="font-weight: bold;">Video Ad</div>
-                        <div style="font-size: 12px; margin-top: 5px;">Watch & Earn Money</div>
+                        <div style="font-size: 32px; margin-bottom: 10px;">📱</div>
+                        <div style="font-weight: bold; font-size: 16px;">Mobile App Offer</div>
+                        <div style="font-size: 12px; margin-top: 5px;">Install & Earn ₹100</div>
                     </div>
+                    <div style="position: absolute; top: 5px; right: 5px; background: red; color: white; padding: 2px 6px; border-radius: 10px; font-size: 10px;">NEW</div>
                 </div>
             </div>
         `;
-        this.adContainer.innerHTML += videoHTML;
+        this.adContainer.innerHTML += videoHTML1;
     }
 
-    showPushAd() {
-        console.log('🔔 Showing Push Ad');
-        const pushHTML = `
-            <div class="push-ad" style="position: fixed; top: 20px; left: 20px; z-index: 9998; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.3); min-width: 250px;">
-                <div style="display: flex; align-items: center; gap: 10px;">
-                    <div style="width: 40px; height: 40px; background: #007bff; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">$$</div>
-                    <div>
-                        <div style="font-weight: bold; color: #333;">Earn Money Alert</div>
-                        <div style="font-size: 12px; color: #666;">Complete offers to earn!</div>
+    showVideoAd2() {
+        console.log('🎬 Showing Video Ad 2');
+        
+        const videoHTML2 = `
+            <div id="video-ad-2" style="position: fixed; bottom: 20px; right: 20px; z-index: 9998; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.3);">
+                <div style="width: 280px; height: 180px; background: linear-gradient(135deg, #f093fb, #f5576c); display: flex; align-items: center; justify-content: center; color: white; border-radius: 8px; position: relative;">
+                    <div style="text-align: center;">
+                        <div style="font-size: 32px; margin-bottom: 10px;">🎮</div>
+                        <div style="font-weight: bold; font-size: 16px;">Game Challenge</div>
+                        <div style="font-size: 12px; margin-top: 5px;">Play & Win Cash</div>
                     </div>
+                    <div style="position: absolute; top: 5px; left: 5px; background: green; color: white; padding: 2px 6px; border-radius: 10px; font-size: 10px;">HOT</div>
                 </div>
             </div>
         `;
-        this.adContainer.innerHTML += pushHTML;
+        this.adContainer.innerHTML += videoHTML2;
     }
 
     // Clear all previous ads
     clearAds() {
         if (this.adContainer) {
-            // Keep only the current banner if exists
-            const currentBanners = this.adContainer.querySelectorAll('[class*="banner-ad-"]');
-            currentBanners.forEach(banner => {
-                if (!banner.className.includes(this.bannerCounter)) {
-                    banner.remove();
-                }
-            });
+            this.adContainer.innerHTML = '';
         }
     }
 }
@@ -180,4 +144,6 @@ function submitAnswer() {
         adManager.showQuadAds();
     }, 1000);
 }
+
+console.log('✅ Custom Ad System Loaded - 1 Banner + 1 SmartLink + 2 Videos');
 </script>
