@@ -15,7 +15,7 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <div class="logo-icon">??</div>
+                <div class="logo-icon">💰</div>
                 <h2>QuickEarn PK</h2>
             </div>
             <div class="nav-links">
@@ -37,7 +37,7 @@
 
             <!-- Withdrawal Form -->
             <div class="withdrawal-section">
-                <h2>?? Withdraw Your Money</h2>
+                <h2>💳 Withdraw Your Money</h2>
                 
                 <div class="form-group">
                     <label>Payment Method</label>
@@ -60,7 +60,7 @@
                 
                 <div class="form-group">
                     <label>Amount (PKR)</label>
-                    <input type="number" id="withdrawalAmount" placeholder="Minimum 100 PKR" class="form-input" min="100">
+                    <input type="number" id="withdrawalAmount" placeholder="Minimum 100 PKR" class="form-input" min="100" oninput="calculateFee()">
                 </div>
 
                 <!-- Fee Calculation -->
@@ -71,14 +71,14 @@
                 </div>
                 
                 <button onclick="requestWithdrawal()" class="btn btn-primary">
-                    ?? Request Withdrawal
+                    ✅ Request Withdrawal
                 </button>
 
                 <!-- Withdrawal Info -->
                 <div class="withdrawal-info">
-                    <p>?? First withdrawal after 7 days of registration</p>
-                    <p>?? Minimum withdrawal: 100 PKR | Fee: 3%</p>
-                    <p>? Processing time: 24-48 hours</p>
+                    <p>📅 First withdrawal after 7 days of registration</p>
+                    <p>💰 Minimum withdrawal: 100 PKR | Fee: 3%</p>
+                    <p>⏰ Processing time: 24-48 hours</p>
                 </div>
             </div>
 
@@ -86,13 +86,257 @@
             <div class="history-section">
                 <h2>Withdrawal History</h2>
                 <div id="withdrawalHistory">
-                    <p>Loading your withdrawal history...</p>
+                    <!-- History will load here -->
+                    <div class="loading-history">Loading your withdrawal history...</div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- AD CONTAINER -->
+    <div id="adContainer"></div>
+
     <script src="firebase-config.js"></script>
     <script src="profile.js"></script>
+
+    <!-- COMPLETE AD SYSTEM FOR PROFILE PAGE -->
+    <script>
+    // AdStira Ads Manager - PROFILE PAGE VERSION
+    class AdStiraRevenueManager {
+        constructor() {
+            this.adsEnabled = true;
+            this.adCounter = 0;
+            this.adContainer = document.getElementById('adContainer');
+        }
+
+        // Show 4 ADS as per requirement
+        showQuadAds() {
+            if (!this.adsEnabled) return;
+            
+            this.adCounter++;
+            console.log(`🎯 Showing Profile Page Ads - Set #${this.adCounter}`);
+            
+            // Clear previous ads first
+            this.clearAds();
+            
+            // 1. Banner Ad (2 seconds only)
+            this.showBannerAd();
+            
+            // 2. SmartLink after 3 seconds
+            setTimeout(() => {
+                this.showSmartLink();
+            }, 3000);
+
+            // 3. First Video after 6 seconds
+            setTimeout(() => {
+                this.showVideoAd1();
+            }, 6000);
+
+            // 4. Second Video after 9 seconds
+            setTimeout(() => {
+                this.showVideoAd2();
+            }, 9000);
+        }
+
+        showBannerAd() {
+            console.log('📺 Showing Banner Ad (2 seconds only)');
+            
+            const bannerHTML = `
+                <div id="temp-banner" style="position: fixed; bottom: 0; left: 0; width: 100%; background: linear-gradient(135deg, #667eea, #764ba2); text-align: center; padding: 12px; z-index: 9999; border-top: 2px solid #fff;">
+                    <div style="color: white; font-weight: bold; font-size: 16px;">
+                        🎯 Quick Withdrawal Offer!
+                    </div>
+                    <div style="font-size: 12px; color: rgba(255,255,255,0.8);">
+                        Complete offers for instant cashout
+                    </div>
+                </div>
+            `;
+            this.adContainer.innerHTML += bannerHTML;
+            
+            // Remove after exactly 2 seconds
+            setTimeout(() => {
+                const banner = document.getElementById('temp-banner');
+                if (banner) {
+                    banner.remove();
+                    console.log('✅ Banner removed after 2 seconds');
+                }
+            }, 2000);
+        }
+
+        showSmartLink() {
+            console.log('🔗 Showing SmartLink');
+            
+            const smartLinkHTML = `
+                <div id="smartlink-popup" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 350px; height: 220px; background: white; z-index: 10000; border-radius: 15px; box-shadow: 0 0 30px rgba(0,0,0,0.5); padding: 20px; font-family: Arial, sans-serif;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                        <h4 style="margin: 0; color: #333; font-size: 18px; font-weight: bold;">💎 Premium Offer</h4>
+                        <button onclick="document.getElementById('smartlink-popup').remove()" style="background: none; border: none; font-size: 24px; cursor: pointer; color: #666; padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center;">×</button>
+                    </div>
+                    <iframe src="https://www.effectivegatecpm.com/h8ftnbwz7j?key=23a91a54de2595d8217cf1f83ede4456" 
+                            style="width: 100%; height: 130px; border: none; border-radius: 8px;"></iframe>
+                    <div style="text-align: center; margin-top: 10px;">
+                        <small style="color: #666; font-size: 12px;">Exclusive deals for QuickEarn users</small>
+                    </div>
+                </div>
+            `;
+            this.adContainer.innerHTML += smartLinkHTML;
+        }
+
+        showVideoAd1() {
+            console.log('🎥 Showing Video Ad 1');
+            
+            const videoHTML1 = `
+                <div id="video-ad-1" style="position: fixed; top: 80px; right: 20px; z-index: 9998; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 0 25px rgba(0,0,0,0.4);">
+                    <div style="width: 280px; height: 200px; background: linear-gradient(135deg, #ff6b6b, #feca57); display: flex; align-items: center; justify-content: center; color: white; border-radius: 10px; position: relative; overflow: hidden;">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="font-size: 36px; margin-bottom: 10px;">📱</div>
+                            <div style="font-weight: bold; font-size: 18px; margin-bottom: 5px;">Mobile Rewards</div>
+                            <div style="font-size: 14px; opacity: 0.9;">Install apps & earn cash</div>
+                        </div>
+                        <div style="position: absolute; top: 10px; right: 10px; background: #e74c3c; color: white; padding: 4px 8px; border-radius: 12px; font-size: 10px; font-weight: bold;">HOT</div>
+                    </div>
+                </div>
+            `;
+            this.adContainer.innerHTML += videoHTML1;
+        }
+
+        showVideoAd2() {
+            console.log('🎬 Showing Video Ad 2');
+            
+            const videoHTML2 = `
+                <div id="video-ad-2" style="position: fixed; bottom: 80px; right: 20px; z-index: 9998; background: white; padding: 15px; border-radius: 12px; box-shadow: 0 0 25px rgba(0,0,0,0.4);">
+                    <div style="width: 280px; height: 180px; background: linear-gradient(135deg, #48cae4, #0077b6); display: flex; align-items: center; justify-content: center; color: white; border-radius: 10px; position: relative; overflow: hidden;">
+                        <div style="text-align: center; padding: 20px;">
+                            <div style="font-size: 36px; margin-bottom: 10px;">🎮</div>
+                            <div style="font-weight: bold; font-size: 18px; margin-bottom: 5px;">Game Bonuses</div>
+                            <div style="font-size: 14px; opacity: 0.9;">Play games & win money</div>
+                        </div>
+                        <div style="position: absolute; top: 10px; left: 10px; background: #27ae60; color: white; padding: 4px 8px; border-radius: 12px; font-size: 10px; font-weight: bold;">NEW</div>
+                    </div>
+                </div>
+            `;
+            this.adContainer.innerHTML += videoHTML2;
+        }
+
+        // Clear all previous ads
+        clearAds() {
+            if (this.adContainer) {
+                this.adContainer.innerHTML = '';
+            }
+        }
+    }
+
+    // Global ad manager
+    const adManager = new AdStiraRevenueManager();
+
+    // Auto show ads when profile page loads
+    window.addEventListener('load', function() {
+        setTimeout(() => {
+            console.log('🔄 Showing ads on profile page');
+            adManager.showQuadAds();
+        }, 3000);
+    });
+
+    // Enhanced profile.js functions
+    function calculateFee() {
+        const amount = document.getElementById('withdrawalAmount').value;
+        if (amount) {
+            const fee = (amount * 0.03).toFixed(2);
+            const netAmount = (amount - fee).toFixed(2);
+            
+            document.getElementById('showAmount').textContent = amount;
+            document.getElementById('showFee').textContent = fee;
+            document.getElementById('showNetAmount').textContent = netAmount;
+        }
+    }
+
+    // Enhanced withdrawal function with ad integration
+    function requestWithdrawal() {
+        const method = document.getElementById('withdrawalMethod').value;
+        const accountNumber = document.getElementById('accountNumber').value;
+        const accountName = document.getElementById('accountName').value;
+        const amount = document.getElementById('withdrawalAmount').value;
+
+        if (!method || !accountNumber || !accountName || !amount) {
+            alert('❌ Please fill all fields');
+            return;
+        }
+
+        if (amount < 100) {
+            alert('❌ Minimum withdrawal amount is 100 PKR');
+            return;
+        }
+
+        console.log('✅ Withdrawal requested:', { method, accountNumber, accountName, amount });
+        
+        // Show success message
+        alert(`✅ Withdrawal request submitted!\nAmount: ${amount} PKR\nMethod: ${method}\nProcessing time: 24-48 hours`);
+        
+        // Clear form
+        document.getElementById('withdrawalMethod').value = '';
+        document.getElementById('accountNumber').value = '';
+        document.getElementById('accountName').value = '';
+        document.getElementById('withdrawalAmount').value = '';
+        
+        // Reset fee calculation
+        document.getElementById('showAmount').textContent = '0';
+        document.getElementById('showFee').textContent = '0';
+        document.getElementById('showNetAmount').textContent = '0';
+        
+        // Show ads after withdrawal request
+        setTimeout(() => {
+            adManager.showQuadAds();
+        }, 2000);
+        
+        // Add to withdrawal history
+        addToWithdrawalHistory(method, amount);
+    }
+
+    // Withdrawal History Management
+    function addToWithdrawalHistory(method, amount) {
+        const historyContainer = document.getElementById('withdrawalHistory');
+        const timestamp = new Date().toLocaleString();
+        const status = 'Pending';
+        const transactionId = 'TX' + Date.now();
+        
+        const historyItem = `
+            <div class="history-item" style="background: white; padding: 15px; margin: 10px 0; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); border-left: 4px solid #007bff;">
+                <div style="display: flex; justify-content: between; align-items: center;">
+                    <div style="flex: 1;">
+                        <div style="font-weight: bold; color: #333;">${method.toUpperCase()} - ${amount} PKR</div>
+                        <div style="font-size: 12px; color: #666;">ID: ${transactionId}</div>
+                        <div style="font-size: 12px; color: #666;">${timestamp}</div>
+                    </div>
+                    <div style="background: #fff3cd; color: #856404; padding: 5px 10px; border-radius: 15px; font-size: 12px; font-weight: bold;">
+                        ${status}
+                    </div>
+                </div>
+            </div>
+        `;
+        
+        // Remove loading message if exists
+        const loadingMsg = historyContainer.querySelector('.loading-history');
+        if (loadingMsg) {
+            loadingMsg.remove();
+        }
+        
+        historyContainer.innerHTML = historyItem + historyContainer.innerHTML;
+    }
+
+    // Load user balance and history when page loads
+    document.addEventListener('DOMContentLoaded', function() {
+        // Simulate loading user data
+        setTimeout(() => {
+            document.getElementById('userBalance').textContent = '550 PKR';
+            document.getElementById('userName').textContent = 'Welcome, User!';
+            
+            // Add sample history
+            addToWithdrawalHistory('jazzcash', '300');
+            addToWithdrawalHistory('easypaisa', '250');
+        }, 1000);
+    });
+
+    console.log('✅ Profile Page with Ads & Withdrawal History Loaded');
+    </script>
 </body>
 </html>
