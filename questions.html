@@ -1,149 +1,100 @@
-<script>
-// AdStira Ads Manager - CUSTOM VERSION
-class AdStiraRevenueManager {
-    constructor() {
-        this.adsEnabled = true;
-        this.adCounter = 0;
-        this.adContainer = document.getElementById('adContainer');
-    }
-
-    // Show 4 ADS as per requirement
-    showQuadAds() {
-        if (!this.adsEnabled) return;
-        
-        this.adCounter++;
-        console.log(`🎯 Showing Custom Ads - Set #${this.adCounter}`);
-        
-        // Clear previous ads first
-        this.clearAds();
-        
-        // 1. Banner Ad (2 seconds only)
-        this.showBannerAd();
-        
-        // 2. SmartLink after 3 seconds
-        setTimeout(() => {
-            this.showSmartLink();
-        }, 3000);
-
-        // 3. First Video after 6 seconds
-        setTimeout(() => {
-            this.showVideoAd1();
-        }, 6000);
-
-        // 4. Second Video after 9 seconds
-        setTimeout(() => {
-            this.showVideoAd2();
-        }, 9000);
-    }
-
-    showBannerAd() {
-        console.log('📺 Showing Banner Ad (2 seconds only)');
-        
-        const bannerHTML = `
-            <div id="temp-banner" style="position: fixed; bottom: 0; left: 0; width: 100%; background: white; text-align: center; padding: 8px; z-index: 9999; border-top: 2px solid #007bff;">
-                <div style="color: #333; font-weight: bold; font-size: 14px;">
-                    🎯 Quick Offer - Limited Time!
-                </div>
-                <div style="font-size: 12px; color: #666;">
-                    Special promotion ending soon
-                </div>
-            </div>
-        `;
-        this.adContainer.innerHTML += bannerHTML;
-        
-        // Remove after exactly 2 seconds
-        setTimeout(() => {
-            const banner = document.getElementById('temp-banner');
-            if (banner) {
-                banner.remove();
-                console.log('✅ Banner removed after 2 seconds');
-            }
-        }, 2000);
-    }
-
-    showSmartLink() {
-        console.log('🔗 Showing SmartLink');
-        
-        const smartLinkHTML = `
-            <div id="smartlink-popup" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 320px; height: 200px; background: white; z-index: 10000; border-radius: 10px; box-shadow: 0 0 25px rgba(0,0,0,0.4); padding: 15px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                    <h4 style="margin: 0; color: #333; font-size: 16px;">🌟 Special Offer</h4>
-                    <button onclick="document.getElementById('smartlink-popup').remove()" style="background: none; border: none; font-size: 20px; cursor: pointer; color: #666;">×</button>
-                </div>
-                <iframe src="https://www.effectivegatecpm.com/h8ftnbwz7j?key=23a91a54de2595d8217cf1f83ede4456" 
-                        style="width: 100%; height: 120px; border: none; border-radius: 5px;"></iframe>
-                <div style="text-align: center; margin-top: 8px;">
-                    <small style="color: #666;">Click for amazing deals</small>
-                </div>
-            </div>
-        `;
-        this.adContainer.innerHTML += smartLinkHTML;
-    }
-
-    showVideoAd1() {
-        console.log('🎥 Showing Video Ad 1');
-        
-        const videoHTML1 = `
-            <div id="video-ad-1" style="position: fixed; top: 20px; right: 20px; z-index: 9998; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.3);">
-                <div style="width: 280px; height: 200px; background: linear-gradient(135deg, #667eea, #764ba2); display: flex; align-items: center; justify-content: center; color: white; border-radius: 8px; position: relative;">
-                    <div style="text-align: center;">
-                        <div style="font-size: 32px; margin-bottom: 10px;">📱</div>
-                        <div style="font-weight: bold; font-size: 16px;">Mobile App Offer</div>
-                        <div style="font-size: 12px; margin-top: 5px;">Install & Earn ₹100</div>
-                    </div>
-                    <div style="position: absolute; top: 5px; right: 5px; background: red; color: white; padding: 2px 6px; border-radius: 10px; font-size: 10px;">NEW</div>
-                </div>
-            </div>
-        `;
-        this.adContainer.innerHTML += videoHTML1;
-    }
-
-    showVideoAd2() {
-        console.log('🎬 Showing Video Ad 2');
-        
-        const videoHTML2 = `
-            <div id="video-ad-2" style="position: fixed; bottom: 20px; right: 20px; z-index: 9998; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 0 20px rgba(0,0,0,0.3);">
-                <div style="width: 280px; height: 180px; background: linear-gradient(135deg, #f093fb, #f5576c); display: flex; align-items: center; justify-content: center; color: white; border-radius: 8px; position: relative;">
-                    <div style="text-align: center;">
-                        <div style="font-size: 32px; margin-bottom: 10px;">🎮</div>
-                        <div style="font-weight: bold; font-size: 16px;">Game Challenge</div>
-                        <div style="font-size: 12px; margin-top: 5px;">Play & Win Cash</div>
-                    </div>
-                    <div style="position: absolute; top: 5px; left: 5px; background: green; color: white; padding: 2px 6px; border-radius: 10px; font-size: 10px;">HOT</div>
-                </div>
-            </div>
-        `;
-        this.adContainer.innerHTML += videoHTML2;
-    }
-
-    // Clear all previous ads
-    clearAds() {
-        if (this.adContainer) {
-            this.adContainer.innerHTML = '';
-        }
-    }
-}
-
-// Global ad manager
-const adManager = new AdStiraRevenueManager();
-
-// Auto show ads when questions page loads
-window.addEventListener('load', function() {
-    setTimeout(() => {
-        console.log('🔄 Showing initial ads on questions page');
-        adManager.showQuadAds();
-    }, 2000);
-});
-
-// Show ads after each question
-function submitAnswer() {
-    console.log('✅ Answer submitted - Showing ads');
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Games - Play&Win</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-auth-compat.js"></script>
+</head>
+<body>
+    <div class="background-animation"></div>
     
-    // Show new ads after answer
-    setTimeout(() => {
-        adManager.showQuadAds();
-    }, 1000);
-}
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">🎮</div>
+                <h2>Play&Win</h2>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="playgame.html" class="nav-link active">Play Games</a>
+                <a href="profile.html" class="nav-link">Withdraw</a>
+                <span class="balance-badge" id="userBalance">0 PKR</span>
+            </div>
+        </div>
+    </nav>
 
-console.log('✅ Custom Ad System Loaded - 1 Banner + 1 SmartLink + 2 Videos');
-</script>
+    <div class="container">
+        <div class="games-container">
+            <h1 class="games-title">🎮 Play Games & Earn Money</h1>
+            <p class="games-subtitle">Click on any game to start playing and earning!</p>
+            
+            <div class="games-grid">
+                <div class="game-card">
+                    <div class="game-icon">🎰</div>
+                    <h3>Slot Machine</h3>
+                    <p class="game-desc">Spin and win big rewards!</p>
+                    <a href="https://www.cpagrip.com/show_ad.php?ad=3893183" target="_blank" class="btn btn-primary game-btn">
+                        Play Now 🎰
+                    </a>
+                </div>
+
+                <div class="game-card">
+                    <div class="game-icon">🃏</div>
+                    <h3>Casino Game</h3>
+                    <p class="game-desc">Test your luck and skills!</p>
+                    <a href="https://www.cpagrip.com/show_ad.php?ad=3893184" target="_blank" class="btn btn-primary game-btn">
+                        Play Now 🃏
+                    </a>
+                </div>
+
+                <div class="game-card">
+                    <div class="game-icon">🧩</div>
+                    <h3>Puzzle Game</h3>
+                    <p class="game-desc">Challenge your brain!</p>
+                    <a href="https://www.cpagrip.com/show_ad.php?ad=3893185" target="_blank" class="btn btn-primary game-btn">
+                        Play Now 🧩
+                    </a>
+                </div>
+            </div>
+
+            <div class="earnings-info">
+                <h3>💰 How to Earn Money:</h3>
+                <ul>
+                    <li>Click on any game to play</li>
+                    <li>Complete game levels</li>
+                    <li>Watch ads for extra earnings</li>
+                    <li>Withdraw your money instantly</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script src="firebase-config.js"></script>
+    <script src="auth.js"></script>
+    <script>
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                loadUserData();
+            } else {
+                window.location.href = 'index.html';
+            }
+        });
+
+        async function loadUserData() {
+            try {
+                const userDoc = await db.collection('users').doc(auth.currentUser.uid).get();
+                if (userDoc.exists) {
+                    const userData = userDoc.data();
+                    document.getElementById('userBalance').textContent = userData.balance + ' PKR';
+                }
+            } catch (error) {
+                console.error('Error loading user data:', error);
+            }
+        }
+    </script>
+</body>
+</html>
