@@ -89,6 +89,7 @@ body {
 .nav-links {
     display: flex;
     gap: 2rem;
+    align-items: center;
 }
 
 .nav-link {
@@ -103,6 +104,15 @@ body {
 .nav-link:hover, .nav-link.active {
     background: var(--primary);
     color: white;
+}
+
+.balance-badge {
+    background: var(--secondary);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
 }
 
 .container {
@@ -241,6 +251,9 @@ body {
     cursor: pointer;
     transition: all 0.3s ease;
     margin-bottom: 0.5rem;
+    text-decoration: none;
+    display: block;
+    text-align: center;
 }
 
 .btn-primary {
@@ -271,60 +284,103 @@ body {
     margin-top: 1rem;
 }
 
-/* Questions Page Styles */
-.question-container {
+/* Games Page Styles */
+.games-container {
     background: var(--card-bg);
     padding: 2rem;
     border-radius: 20px;
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     margin: 100px auto 2rem;
-    max-width: 800px;
+    max-width: 1000px;
 }
 
-.timer-container {
+.games-title {
     text-align: center;
-    margin-bottom: 2rem;
-}
-
-.timer {
-    font-size: 3rem;
-    font-weight: 700;
-    color: var(--primary);
     margin-bottom: 0.5rem;
+    color: var(--text);
+    font-size: 2.5rem;
 }
 
-.options {
+.games-subtitle {
+    text-align: center;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.games-grid {
     display: grid;
-    gap: 1rem;
-    margin: 2rem 0;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
 }
 
-.option {
-    padding: 1.5rem;
-    border: 2px solid #e5e7eb;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
+.game-card {
     background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.option:hover {
-    border-color: var(--primary);
-    transform: translateY(-2px);
+.game-card:hover {
+    transform: translateY(-5px);
 }
 
-.option.selected {
-    border-color: var(--primary);
-    background: #f0f9ff;
+.game-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
 }
 
-.balance-badge {
-    background: var(--secondary);
-    color: white;
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-weight: 600;
+.game-card h3 {
+    margin-bottom: 1rem;
+    color: var(--text);
+    font-size: 1.5rem;
+}
+
+.game-desc {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+}
+
+.game-btn {
+    text-decoration: none;
+    display: block;
+}
+
+.earnings-info {
+    background: rgba(99, 102, 241, 0.1);
+    padding: 1.5rem;
+    border-radius: 15px;
+    border-left: 4px solid var(--primary);
+}
+
+.earnings-info h3 {
+    margin-bottom: 1rem;
+    color: var(--text);
+}
+
+.earnings-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.earnings-info li {
+    padding: 0.5rem 0;
+    color: var(--text);
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.earnings-info li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--secondary);
+    font-weight: bold;
 }
 
 /* Profile Page Styles */
@@ -358,12 +414,90 @@ body {
     border-radius: 20px;
     backdrop-filter: blur(20px);
     border: 1px solid rgba(255, 255, 255, 0.2);
+    margin-bottom: 2rem;
+}
+
+.withdrawal-section h2 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: var(--text);
+}
+
+.fee-calculation {
+    background: rgba(16, 185, 129, 0.1);
+    padding: 1rem;
+    border-radius: 10px;
+    margin: 1.5rem 0;
+}
+
+.fee-calculation p {
+    margin: 0.5rem 0;
+}
+
+.total-amount {
+    font-weight: bold;
+    color: var(--secondary);
+    font-size: 1.1rem;
+}
+
+.withdrawal-info {
+    background: rgba(59, 130, 246, 0.1);
+    padding: 1rem;
+    border-radius: 10px;
+    margin-top: 1.5rem;
+}
+
+.withdrawal-info p {
+    margin: 0.5rem 0;
+    font-size: 0.9rem;
+}
+
+.history-section {
+    background: var(--card-bg);
+    padding: 2rem;
+    border-radius: 20px;
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.history-item {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 1rem;
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    align-items: center;
+}
+
+.history-item:last-child {
+    border-bottom: none;
+}
+
+.history-amount {
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.history-status {
+    padding: 0.25rem 0.5rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-align: center;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
     .nav-container {
         padding: 1rem;
+        flex-direction: column;
+        gap: 1rem;
     }
     
     .nav-links {
@@ -385,5 +519,18 @@ body {
     .signup-box {
         margin: 2rem 1rem;
         padding: 2rem 1.5rem;
+    }
+    
+    .games-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .history-item {
+        grid-template-columns: 1fr 1fr;
+        gap: 0.5rem;
+    }
+    
+    .balance-amount {
+        font-size: 2rem;
     }
 }
