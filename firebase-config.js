@@ -1,4 +1,4 @@
-// Firebase Configuration - QuickEarn PK
+// Firebase Configuration - Play&Win
 const firebaseConfig = {
     apiKey: "AIzaSyD9_IkfPhX1V1X-XoqO-G7gOyMnReubgdU",
     authDomain: "quickearn-web.firebaseapp.com",
