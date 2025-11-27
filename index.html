@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>QuickEarn PK - Earn 1000 PKR Daily</title>
+    <title>Play&Win - Earn 900 PKR Daily</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-firestore-compat.js"></script>
@@ -15,12 +15,12 @@
     <nav class="navbar">
         <div class="nav-container">
             <div class="logo">
-                <div class="logo-icon">💰</div>
-                <h2>QuickEarn PK</h2>
+                <div class="logo-icon">🎮</div>
+                <h2>Play&Win</h2>
             </div>
             <div class="nav-links">
                 <a href="index.html" class="nav-link active">Home</a>
-                <a href="questions.html" class="nav-link">Earn Money</a>
+                <a href="playgame.html" class="nav-link">Play Games</a>
                 <a href="profile.html" class="nav-link">Withdraw</a>
             </div>
         </div>
@@ -29,35 +29,35 @@
     <section class="hero">
         <div class="container">
             <div class="hero-content">
-                <div class="hero-badge">💸 Earn Real Money</div>
-                <h1 class="hero-title">Earn <span class="gradient-text">1000 PKR</span> Daily</h1>
-                <p class="hero-subtitle">Answer Simple Questions • Watch Ads • Withdraw Instantly</p>
+                <div class="hero-badge">💰 Earn Real Money</div>
+                <h1 class="hero-title">Earn <span class="gradient-text">900 PKR</span> Daily</h1>
+                <p class="hero-subtitle">Play Fun Games • Watch Ads • Withdraw Instantly</p>
                 
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-icon">💰</div>
-                        <div class="stat-number">1000+</div>
+                        <div class="stat-number">900+</div>
                         <div class="stat-label">PKR Daily</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">⏱️</div>
-                        <div class="stat-number">10s</div>
-                        <div class="stat-label">Per Question</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon">💳</div>
-                        <div class="stat-number">2</div>
-                        <div class="stat-label">Payment Methods</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-icon">⚡</div>
                         <div class="stat-number">Instant</div>
-                        <div class="stat-label">Withdrawal</div>
+                        <div class="stat-label">Payout</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🎯</div>
+                        <div class="stat-number">3</div>
+                        <div class="stat-label">Game Types</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🚀</div>
+                        <div class="stat-number">Easy</div>
+                        <div class="stat-label">To Play</div>
                     </div>
                 </div>
 
                 <div class="signup-box">
-                    <h3>Start Earning Today! 🚀</h3>
+                    <h3>Start Playing & Earning Today! 🎮</h3>
                     <div class="form-group">
                         <input type="text" id="firstName" placeholder="First Name" class="form-input">
                     </div>
@@ -70,7 +70,7 @@
                     <div class="form-group">
                         <input type="password" id="password" placeholder="Password" class="form-input">
                     </div>
-                    <button onclick="signUp()" class="btn btn-primary">🎯 Start Earning Free</button>
+                    <button onclick="signUp()" class="btn btn-primary">🎮 Start Playing Free</button>
                     <button onclick="login()" class="btn btn-secondary">🔐 Login to Account</button>
                     <p class="terms-text">By signing up, you agree to our Terms & Privacy Policy</p>
                 </div>
@@ -78,179 +78,7 @@
         </div>
     </section>
 
-    <!-- AD SYSTEM START -->
-    <div id="adContainer"></div>
-
     <script src="firebase-config.js"></script>
     <script src="auth.js"></script>
-
-    <!-- COMPLETE AD SYSTEM -->
-    <script>
-    // AdStira Ads Manager - Complete Version
-    class AdStiraRevenueManager {
-        constructor() {
-            this.adClientId = "62dae259741887f42ba133aea9ce8028";
-            this.adsEnabled = true;
-            this.adCounter = 0;
-            this.dailyRevenue = 0;
-            
-            // Load all external ads
-            this.loadAllExternalAds();
-        }
-
-        // Load all external ad scripts
-        loadAllExternalAds() {
-            // SmartLink
-            this.loadScript('//www.effectivegatecpm.com/h8ftnbwz7j?key=23a91a54de2595d8217cf1f83ede4456');
-            
-            // Social Bar
-            this.loadScript('//pl28138593.effectivegatecpm.com/c1/7a/5b/c17a5b3f2bb47df5b6ce9a99978a3b7c.js');
-            
-            // Native Banner
-            this.loadScript('//pl28140114.effectivegatecpm.com/b10b0a2549e0366bc6317a6d5862501e/invoke.js');
-            
-            console.log('✅ All External Ads Loaded');
-        }
-
-        // Helper method to load scripts
-        loadScript(src) {
-            const script = document.createElement('script');
-            script.type = 'text/javascript';
-            script.src = src;
-            document.head.appendChild(script);
-        }
-
-        // Initialize AdStira
-        initAdStira() {
-            if (!this.adsEnabled) return;
-            console.log('✅ AdStira Initialized - Revenue System Ready');
-            
-            // Auto start ads after 5 seconds
-            setTimeout(() => {
-                this.showQuadAds();
-            }, 5000);
-        }
-
-        // Show 4 ADS per question
-        showQuadAds() {
-            if (!this.adsEnabled) return;
-            
-            this.adCounter++;
-            console.log(`🎯 Showing 4 Ads - Set #${this.adCounter}`);
-            
-            // Show interstitial ad
-            this.showInterstitialAd();
-            
-            // Show banner ad after 8 seconds
-            setTimeout(() => {
-                this.showBannerAd();
-            }, 8000);
-
-            // Show video ad after 16 seconds
-            setTimeout(() => {
-                this.showVideoAd();
-            }, 16000);
-
-            // Show push ad after 24 seconds
-            setTimeout(() => {
-                this.showPushAd();
-            }, 24000);
-            
-            console.log(`📊 Total ads shown: ${this.adCounter * 4}`);
-        }
-
-        showInterstitialAd() {
-            console.log('🔄 Showing Interstitial Ad');
-            // SmartLink Interstitial
-            window.open('https://www.effectivegatecpm.com/h8ftnbwz7j?key=23a91a54de2595d8217cf1f83ede4456', '_blank');
-        }
-
-        showBannerAd() {
-            console.log('📺 Showing Banner Ad');
-            // Banner Ad HTML Injection
-            const bannerHTML = `
-                <div style="position: fixed; bottom: 0; width: 100%; text-align: center; background: white; z-index: 9999; padding: 10px; border-top: 2px solid #007bff;">
-                    <script type="text/javascript">
-                        atOptions = {
-                            'key' : '62dae259741887f42ba133aea9ce8028',
-                            'format' : 'iframe',
-                            'height' : 60,
-                            'width' : 468,
-                            'params' : {}
-                        };
-                    </script>
-                    <script type="text/javascript" src="//www.highperformanceformat.com/62dae259741887f42ba133aea9ce8028/invoke.js"></script>
-                </div>
-            `;
-            document.getElementById('adContainer').innerHTML += bannerHTML;
-        }
-
-        showVideoAd() {
-            console.log('🎥 Showing Video Ad');
-            // Social Bar Video Ad
-            const videoAdHTML = `
-                <div id="social-bar-video" style="position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10000;">
-                    <script type='text/javascript' src='//pl28138593.effectivegatecpm.com/c1/7a/5b/c17a5b3f2bb47df5b6ce9a99978a3b7c.js'></script>
-                </div>
-            `;
-            document.getElementById('adContainer').innerHTML += videoAdHTML;
-        }
-
-        showPushAd() {
-            console.log('🔔 Showing Push Ad');
-            // Native Banner Push Ad
-            const nativeHTML = `
-                <div style="position: fixed; top: 10px; right: 10px; z-index: 9998; background: white; padding: 10px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                    <script async="async" data-cfasync="false" src="//pl28140114.effectivegatecpm.com/b10b0a2549e0366bc6317a6d5862501e/invoke.js"></script>
-                    <div id="container-b10b0a2549e0366bc6317a6d5862501e"></div>
-                </div>
-            `;
-            document.getElementById('adContainer').innerHTML += nativeHTML;
-        }
-    }
-
-    // Initialize Ads Manager when page loads
-    window.addEventListener('load', function() {
-        const adManager = new AdStiraRevenueManager();
-        adManager.initAdStira();
-        
-        // Show ads every 30 seconds
-        setInterval(() => {
-            adManager.showQuadAds();
-        }, 30000);
-    });
-
-    // Enhanced auth functions with ad integration
-    function signUp() {
-        // Your existing signup logic
-        const firstName = document.getElementById('firstName').value;
-        const lastName = document.getElementById('lastName').value;
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        
-        console.log('User signed up:', { firstName, lastName, email });
-        alert('Account created successfully! Start earning now.');
-        
-        // Trigger ads after signup
-        if (window.adManager) {
-            window.adManager.showQuadAds();
-        }
-    }
-
-    function login() {
-        // Your existing login logic
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        
-        console.log('User logged in:', { email });
-        alert('Login successful! Redirecting...');
-        
-        // Trigger ads after login
-        if (window.adManager) {
-            window.adManager.showQuadAds();
-        }
-    }
-    </script>
-    <!-- AD SYSTEM END -->
 </body>
 </html>
