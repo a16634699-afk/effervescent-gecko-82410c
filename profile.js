@@ -53,8 +53,8 @@ async function requestWithdrawal() {
         return;
     }
     
-    if (amount < 100) {
-        alert('Minimum withdrawal amount is 100 PKR');
+    if (amount < 300) {
+        alert('Minimum withdrawal amount is 300 PKR');
         return;
     }
     
@@ -63,12 +63,12 @@ async function requestWithdrawal() {
         return;
     }
     
-    // Check if user joined more than 7 days ago
+    // Check if user joined more than 5 days ago
     const joinedDate = userData.joinedDate.toDate();
-    const sevenDaysAgo = new Date(Date.now() - 7 * 24 * 60 * 60 * 1000);
+    const fiveDaysAgo = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
     
-    if (joinedDate > sevenDaysAgo && (userData.totalWithdrawals === 0 || !userData.totalWithdrawals)) {
-        alert('First withdrawal available after 7 days of registration');
+    if (joinedDate > fiveDaysAgo && (userData.totalWithdrawals === 0 || !userData.totalWithdrawals)) {
+        alert('First withdrawal available after 5 days of registration');
         return;
     }
     
@@ -117,7 +117,7 @@ async function requestWithdrawal() {
             message: `Withdrawal Request: ${withdrawalData.userName} - ${amount} PKR via ${method}`
         });
 
-        alert('? Withdrawal request submitted successfully!\n\nYou will receive: ' + netAmount.toFixed(2) + ' PKR\nProcessing time: 24-48 hours');
+        alert('✅ Withdrawal request submitted successfully!\n\nYou will receive: ' + netAmount.toFixed(2) + ' PKR\nProcessing time: 24-48 hours');
         
         // Reset form
         document.getElementById('withdrawalMethod').value = '';
@@ -153,14 +153,15 @@ async function loadWithdrawalHistory() {
         snapshot.forEach(doc => {
             const data = doc.data();
             const date = data.requestDate.toDate().toLocaleDateString();
-            const status = data.status === 'pending' ? '? Pending' : '? Paid';
+            const status = data.status === 'pending' ? '⏳ Pending' : '✅ Paid';
+            const statusClass = data.status === 'pending' ? 'pending' : 'paid';
             
             historyHTML += `
                 <div class="history-item">
                     <div class="history-amount">${data.amount} PKR</div>
                     <div class="history-method">${data.method}</div>
                     <div class="history-date">${date}</div>
-                    <div class="history-status">${status}</div>
+                    <div class="history-status ${statusClass}">${status}</div>
                 </div>
             `;
         });
