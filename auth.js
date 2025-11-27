@@ -11,7 +11,7 @@ async function signUp() {
     }
 
     try {
-        console.log('?? Creating user account...');
+        console.log('🎮 Creating user account...');
         
         const userCredential = await auth.createUserWithEmailAndPassword(email, password);
         const user = userCredential.user;
@@ -23,7 +23,7 @@ async function signUp() {
             balance: 0,
             todayEarnings: 0,
             totalEarnings: 0,
-            questionsAnswered: 0,
+            gamesPlayed: 0,
             referralCode: generateReferralCode(),
             joinedDate: new Date(),
             country: 'Pakistan',
@@ -45,8 +45,8 @@ async function signUp() {
             message: `New user: ${firstName} ${lastName} (${email})`
         });
 
-        alert('?? Account created! Start earning 1000 PKR daily.');
-        window.location.href = 'questions.html';
+        alert('🎮 Account created! Start playing and earning 900 PKR daily.');
+        window.location.href = 'playgame.html';
         
     } catch (error) {
         console.error('Error:', error);
@@ -60,15 +60,15 @@ async function login() {
 
     try {
         await auth.signInWithEmailAndPassword(email, password);
-        alert('Welcome back!');
-        window.location.href = 'questions.html';
+        alert('Welcome back to Play&Win!');
+        window.location.href = 'playgame.html';
     } catch (error) {
         alert('Error: ' + error.message);
     }
 }
 
 function generateReferralCode() {
-    return 'QK' + Math.random().toString(36).substr(2, 6).toUpperCase();
+    return 'PW' + Math.random().toString(36).substr(2, 6).toUpperCase();
 }
 
 auth.onAuthStateChanged((user) => {
